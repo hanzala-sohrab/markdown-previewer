@@ -1,23 +1,30 @@
-import logo from './logo.svg';
+import React, { useEffect, useState } from 'react';
 import './App.css';
+import { marked } from 'marked';
 
 function App() {
+  const [input, setInput] = useState('');
+
+  useEffect(() => {
+    document.getElementById('preview').innerHTML = marked(input);
+  }, [input]);
+
+  const handleInput = (e) => {
+    setInput(e.target.value);
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {/* <div className="container">
+          <div><textarea id='editor' onInput={handleInput}>{input}</textarea></div>
+          <div><textarea id='preview'></textarea></div>
+      </div> */}
+      <div className="container">
+        <div className="row">
+          <div className="col"><textarea id='editor' onInput={handleInput}>{input}</textarea></div>
+          <div className="col"><div id='preview'></div></div>
+        </div>
+      </div>
     </div>
   );
 }
