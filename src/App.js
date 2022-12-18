@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
 import { marked } from 'marked';
+import { h1, h2, link, list, code, blockQuote, image, text } from './sampleMarkdown';
 
 function App() {
-  const [input, setInput] = useState('');
+  const val = `${h1}\n${h2}\n${link}\n${blockQuote}\n${text}\n${list}\n${code}\n${image}`;
+  const [input, setInput] = useState(val);
 
   useEffect(() => {
-    document.getElementById('preview').innerHTML = marked(input);
+    document.getElementById('preview').innerHTML = marked(input, { breaks: true });
   }, [input]);
 
   const handleInput = (e) => {
@@ -15,14 +17,14 @@ function App() {
 
   return (
     <div className="App">
-      {/* <div className="container">
-          <div><textarea id='editor' onInput={handleInput}>{input}</textarea></div>
-          <div><textarea id='preview'></textarea></div>
-      </div> */}
       <div className="container">
         <div className="row">
-          <div className="col"><textarea id='editor' onInput={handleInput}>{input}</textarea></div>
-          <div className="col"><div id='preview'></div></div>
+          <div className="col">
+            <textarea id='editor' onInput={handleInput} placeholder="Editor">{input}</textarea>
+          </div>
+          <div className="col">
+            <div id='preview'>Preview</div>
+          </div>
         </div>
       </div>
     </div>
