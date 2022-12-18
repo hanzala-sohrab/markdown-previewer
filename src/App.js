@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
 import { marked } from 'marked';
+import highlightjs from "highlight.js";
 import { h1, h2, link, list, code, blockQuote, image, text } from './sampleMarkdown';
 
 function App() {
@@ -8,7 +9,13 @@ function App() {
   const [input, setInput] = useState(val);
 
   useEffect(() => {
-    document.getElementById('preview').innerHTML = marked(input, { breaks: true });
+    document.getElementById('preview').innerHTML = marked(input, {
+      langPrefix: "hljs language-",
+      highlight: function (code) {
+        return highlightjs.highlightAuto(code, ["html", "javascript", "c", "cpp", "java", "python"]).value;
+      },
+      breaks: true
+    });
   }, [input]);
 
   const handleInput = (e) => {
